@@ -93,7 +93,7 @@ export default class LitConnectModal {
     this.filteredListOfWalletsArray.forEach(w => {
       walletListHtml += `
         <div class="lcm-wallet-container" id="${w.id}">
-          <img class="lcm-wallet-logo"  src=${w.logo} />
+          <svg class="lcm-wallet-logo"  data-src=${w.logo} />
           <div class="lcm-text-column">
             <p class="lcm-wallet-name" >${w.name}</p>
             <p class="lcm-wallet-synopsis" >${w.synopsis}</p>

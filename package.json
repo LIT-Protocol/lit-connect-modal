@@ -1,6 +1,6 @@
 {
   "name": "lit-connect-modal",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "",
   "main": "src/modal.js",
   "scripts": {
@@ -12,7 +12,6 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "external-svg-loader": "^1.4.0",
     "micromodal": "^0.4.10"
   }
 }
