@@ -12,6 +12,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "external-svg-loader": "^1.4.0",
     "micromodal": "^0.4.10"
   }
 }

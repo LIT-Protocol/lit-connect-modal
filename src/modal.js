@@ -3,6 +3,7 @@ import MicroModal from 'micromodal';
 import './modal.css';
 import rawListOfWalletsArray from './helpers/walletList.js';
 import providerMethods from './helpers/providerMethods.js';
+import "external-svg-loader";
 
 export default class LitConnectModal {
   constructor({providerOptions}) {
