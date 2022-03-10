@@ -1,4 +1,3 @@
-// import WalletConnect from "@walletconnect/web3-provider";
 import metaMaskLogo from '../logos/metamask.svg';
 import walletConnectLogo from '../logos/walletconnect.svg';
 

@@ -34,14 +34,11 @@
 
 .lcm-wallet-container {
   display: flex;
-  /* flex-direction: column; */
-  justify-context: space-between;
   align-items: center;
   margin: 2rem 0.5rem;
   transition-duration: 0.2s;
   border-radius: 0.25rem;
   padding: 2rem;
-  /* border: 1px solid rgba(129, 89, 217, 1);sa */
 }
 
 .lcm-wallet-container:hover {
