@@ -3,8 +3,6 @@ import MicroModal from 'micromodal';
 import './modal.css';
 import rawListOfWalletsArray from './helpers/walletList.js';
 import providerMethods from './helpers/providerMethods.js';
-import "external-svg-loader";
-
 export default class LitConnectModal {
   constructor({providerOptions}) {
     this.dialog = MicroModal;
@@ -93,7 +91,7 @@ export default class LitConnectModal {
     this.filteredListOfWalletsArray.forEach(w => {
       walletListHtml += `
         <div class="lcm-wallet-container" id="${w.id}">
-          <svg class="lcm-wallet-logo"  data-src=${w.logo} />
+          <img class="lcm-wallet-logo"  src=${w.logo} />
           <div class="lcm-text-column">
             <p class="lcm-wallet-name" >${w.name}</p>
             <p class="lcm-wallet-synopsis" >${w.synopsis}</p>
