@@ -1,10 +1,10 @@
-import MicroModal from 'micromodal'; 
-// import MicroModal from './micromodal.js'; 
-import './modal.css';
-import rawListOfWalletsArray from './helpers/walletList.js';
-import providerMethods from './helpers/providerMethods.js';
+import MicroModal from "micromodal";
+// import MicroModal from './micromodal.js';
+import css from "./modal.css";
+import rawListOfWalletsArray from "./helpers/walletList.js";
+import providerMethods from "./helpers/providerMethods.js";
 export default class LitConnectModal {
-  constructor({providerOptions, currentProvider = null}) {
+  constructor({ providerOptions, currentProvider = null }) {
     this.dialog = MicroModal;
     this.closeAction = undefined;
     this.parent = document.body;
@@ -13,26 +13,36 @@ export default class LitConnectModal {
     this.providerOptions = providerOptions;
     this._filterListOfWallets();
     this._instantiateLitConnectModal();
+
+    // inject css
+    var style = document.createElement("style");
+    style.innerHTML = css;
+    document.head.appendChild(style);
   }
 
   getWalletProvider() {
-    this.dialog.show('lit-connect-modal');
+    this.dialog.show("lit-connect-modal");
     return new Promise((resolve, reject) => {
       if (!!this.currentProvider) {
-        const foundProvider = this.filteredListOfWalletsArray.find(w => w.id === this.currentProvider);
-        resolve({provider: foundProvider.provider, providerName: foundProvider.id});
+        const foundProvider = this.filteredListOfWalletsArray.find(
+          (w) => w.id === this.currentProvider
+        );
+        resolve({
+          provider: foundProvider.provider,
+          providerName: foundProvider.id,
+        });
         this._destroy();
         return;
       }
 
-      this.filteredListOfWalletsArray.forEach(w => {
+      this.filteredListOfWalletsArray.forEach((w) => {
         let walletEntry = document.getElementById(w.id);
         walletEntry.addEventListener("click", () => {
-          resolve({provider: w.provider, providerName: w.id});
+          resolve({ provider: w.provider, providerName: w.id });
           this._destroy();
           return;
         });
-      })
+      });
 
       this.closeAction.addEventListener("click", () => {
         resolve(false);
@@ -44,28 +54,31 @@ export default class LitConnectModal {
 
   _filterListOfWallets() {
     const filteredListOfWalletsArray = [];
-    
-    rawListOfWalletsArray.forEach(w => {
+
+    rawListOfWalletsArray.forEach((w) => {
       // filters list based on availability of wallets in rawListOfWalletsArray
       // availability can be confirmed by information contained here, or passed in
-      if(!!w['checkIfPresent'] && w['checkIfPresent']() === true) {
+      if (!!w["checkIfPresent"] && w["checkIfPresent"]() === true) {
         // checks for availability based on 'checkIfPresent' function in rawListOfWalletsArray
         filteredListOfWalletsArray.push(w);
-      } else if(!w['provider'] && !!this.providerOptions[w.id]) {
+      } else if (!w["provider"] && !!this.providerOptions[w.id]) {
         // checks for availability based on imported 'providerOptions' configuration
         // the function to set the provider should always take the 'providerOptions' array and the id of the wallet
         const cloneWalletInfo = w;
-        cloneWalletInfo['provider'] = providerMethods[w.id](this.providerOptions, w.id)
+        cloneWalletInfo["provider"] = providerMethods[w.id](
+          this.providerOptions,
+          w.id
+        );
         filteredListOfWalletsArray.push(cloneWalletInfo);
       }
-    })
+    });
 
     this.filteredListOfWalletsArray = filteredListOfWalletsArray;
   }
 
   _instantiateLitConnectModal() {
-    const connectModal = document.createElement('div');
-    connectModal.setAttribute('id', 'lit-connect-modal-container')
+    const connectModal = document.createElement("div");
+    connectModal.setAttribute("id", "lit-connect-modal-container");
     connectModal.innerHTML = `
       <div class="modal micromodal-slide" id="lit-connect-modal" aria-hidden="true">
         <div class="lcm-modal-overlay" id="lcm-modal-overlay" tabindex="-1" data-micromodal-close>
@@ -76,10 +89,10 @@ export default class LitConnectModal {
         </div>
       </div>
     `;
-  
+
     this.parent.appendChild(connectModal);
-    this.trueButton = document.getElementById('lcm-continue-button');
-    this.closeAction = document.getElementById('lcm-modal-overlay');
+    this.trueButton = document.getElementById("lcm-continue-button");
+    this.closeAction = document.getElementById("lcm-modal-overlay");
 
     this._buildListOfWallets();
 
@@ -88,15 +101,17 @@ export default class LitConnectModal {
       disableFocus: false,
       awaitOpenAnimation: false,
       awaitCloseAnimation: false,
-      debugMode: false
+      debugMode: false,
     });
-    const testEntry = document.getElementById('lcm-metaMast');
+    const testEntry = document.getElementById("lcm-metaMast");
   }
 
   _buildListOfWallets() {
-    const contentContainer = document.getElementById('lit-connect-modal-content');
+    const contentContainer = document.getElementById(
+      "lit-connect-modal-content"
+    );
     let walletListHtml = ``;
-    this.filteredListOfWalletsArray.forEach(w => {
+    this.filteredListOfWalletsArray.forEach((w) => {
       walletListHtml += `
         <div class="lcm-wallet-container" id="${w.id}">
           <img class="lcm-wallet-logo"  src=${w.logo} />
@@ -105,13 +120,13 @@ export default class LitConnectModal {
             <p class="lcm-wallet-synopsis" >${w.synopsis}</p>
           </div>
         </div>
-      `
-    })
+      `;
+    });
     contentContainer.innerHTML = walletListHtml;
   }
 
   _destroy() {
-    const dialog = document.getElementById('lit-connect-modal-container')
+    const dialog = document.getElementById("lit-connect-modal-container");
     if (!!dialog) {
       dialog.remove();
     }
