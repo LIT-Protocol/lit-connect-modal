@@ -22,7 +22,7 @@ const providerMethods = {
 
     const WalletConnectProvider = walletConnectData.package;
 
-    console.log("Creating and returning new WalletConnectProvider...");
+    // console.log("Creating and returning new WalletConnectProvider...");
 
     return new WalletConnectProvider({
       bridge,
