@@ -61,7 +61,7 @@ export default class LitConnectModal {
       if (!!w["checkIfPresent"] && w["checkIfPresent"]() === true) {
         // checks for availability based on 'checkIfPresent' function in rawListOfWalletsArray
         filteredListOfWalletsArray.push(w);
-      } else if (!w["provider"] && !!this.providerOptions[w.id]) {
+      } else if (!!this.providerOptions[w.id]) {
         // checks for availability based on imported 'providerOptions' configuration
         // the function to set the provider should always take the 'providerOptions' array and the id of the wallet
         const cloneWalletInfo = w;

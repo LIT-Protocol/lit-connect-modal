@@ -39,6 +39,7 @@
   transition-duration: 0.2s;
   border-radius: 0.25rem;
   padding: 2rem;
+  cursor: pointer;
 }
 
 .lcm-wallet-container:hover {
