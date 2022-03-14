@@ -4,11 +4,10 @@ import css from "./modal.css";
 import rawListOfWalletsArray from "./helpers/walletList.js";
 import providerMethods from "./helpers/providerMethods.js";
 export default class LitConnectModal {
-  constructor({ providerOptions, currentProvider = null }) {
+  constructor({ providerOptions }) {
     this.dialog = MicroModal;
     this.closeAction = undefined;
     this.parent = document.body;
-    this.currentProvider = currentProvider;
     this.filteredListOfWalletsArray = [];
     this.providerOptions = providerOptions;
     this._filterListOfWallets();
@@ -21,24 +20,26 @@ export default class LitConnectModal {
   }
 
   getWalletProvider() {
+    const currentProvider = localStorage.getItem("lit-web3-provider");
+
     this.dialog.show("lit-connect-modal");
     return new Promise((resolve, reject) => {
-      if (!!this.currentProvider) {
+      // if there is a current provider, resolve with it
+      if (!!currentProvider) {
         const foundProvider = this.filteredListOfWalletsArray.find(
-          (w) => w.id === this.currentProvider
+          (w) => w.id === currentProvider
         );
-        resolve({
-          provider: foundProvider.provider,
-          providerName: foundProvider.id,
-        });
+        resolve(foundProvider.provider);
         this._destroy();
         return;
       }
 
+      // otherwise, show the list of providers
       this.filteredListOfWalletsArray.forEach((w) => {
         let walletEntry = document.getElementById(w.id);
         walletEntry.addEventListener("click", () => {
-          resolve({ provider: w.provider, providerName: w.id });
+          localStorage.setItem("lit-web3-provider", w.id);
+          resolve(w.provider);
           this._destroy();
           return;
         });
