@@ -15,14 +15,11 @@ const providerMethods = {
       qrcode = typeof opts.qrcode !== "undefined" ? opts.qrcode : qrcode;
       infuraId = opts.infuraId || "";
       rpc = opts.rpc || undefined;
-      // chainId =
-      //   opts.network && getChainId(opts.network) ? getChainId(opts.network) : 1;
+      chainId = opts.chainId || 1;
       qrcodeModalOptions = opts.qrcodeModalOptions || undefined;
     }
 
     const WalletConnectProvider = walletConnectData.package;
-
-    // console.log("Creating and returning new WalletConnectProvider...");
 
     return new WalletConnectProvider({
       bridge,
