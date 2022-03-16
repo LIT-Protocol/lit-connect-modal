@@ -3,6 +3,7 @@
   "version": "0.1.3",
   "description": "",
   "main": "src/modal.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
