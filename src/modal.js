@@ -1,8 +1,8 @@
 import MicroModal from "micromodal";
-// import MicroModal from './micromodal.js';
 import css from "./modal.css";
 import rawListOfWalletsArray from "./helpers/walletList.js";
 import providerMethods from "./helpers/providerMethods.js";
+
 export default class LitConnectModal {
   constructor({ providerOptions }) {
     this.dialog = MicroModal;
