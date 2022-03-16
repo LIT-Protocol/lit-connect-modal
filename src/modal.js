@@ -1,9 +1,9 @@
-import MicroModal from "micromodal";
-import css from "./modal.css";
-import rawListOfWalletsArray from "./helpers/walletList.js";
-import providerMethods from "./helpers/providerMethods.js";
+const MicroModal = require("micromodal");
+const css = require("./modal.css");
+const rawListOfWalletsArray = require("./helpers/walletList.js");
+const providerMethods = require("./helpers/providerMethods.js");
 
-export default class LitConnectModal {
+class LitConnectModal {
   constructor({ providerOptions }) {
     this.dialog = MicroModal;
     this.closeAction = undefined;
@@ -133,3 +133,5 @@ export default class LitConnectModal {
     }
   }
 }
+
+module.exports = LitConnectModal;

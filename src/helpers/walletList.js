@@ -27,4 +27,4 @@ const rawListOfWalletsArray = [
   },
 ];
 
-export default rawListOfWalletsArray;
+module.exports = rawListOfWalletsArray;

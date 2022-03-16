@@ -32,4 +32,4 @@ const providerMethods = {
   },
 };
 
-export default providerMethods;
+module.exports = providerMethods;
