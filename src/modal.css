@@ -12,6 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 12;
 }
 
 .lcm-modal-container {
@@ -61,11 +62,13 @@
 .lcm-wallet-name {
   font-weight: bold;
   font-size: 1.2rem;
+  margin: 0;
 }
 
 .lcm-wallet-synopsis {
   color: #777;
   font-size: 0.9rem;
+  margin: 0;
 }
 
 
