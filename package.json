@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "esbuild": "^0.14.27",
+    "esbuild": "^0.14.54",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
