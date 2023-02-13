@@ -13,6 +13,8 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "micromodal": "^0.4.10"
+    "@walletconnect/web3-provider": "^1.8.0",
+    "micromodal": "^0.4.10",
+    "web3": "^1.7.5"
   }
 }
