@@ -1,4 +1,5 @@
 import metaMaskLogo from "../logos/metamask.svg";
+import coinbaseLogo from "../logos/coinbase.svg";
 import walletConnectLogo from "../logos/walletconnect.svg";
 
 const rawListOfWalletsArray = [
@@ -11,6 +12,21 @@ const rawListOfWalletsArray = [
     synopsis: "Connect your MetaMask Wallet",
     checkIfPresent: () => {
       if (typeof globalThis.ethereum !== "undefined") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+  {
+    htmlId: "lcm-coinbase",
+    id: "coinbase",
+    logo: coinbaseLogo,
+    name: "Coinbase",
+    provider: globalThis.ethereum?.providers?.find(p => p.isCoinbaseWallet),
+    synopsis: "Connect your Coinbase Wallet",
+    checkIfPresent: () => {
+      if (!!globalThis.ethereum?.providers?.find(p => p.isCoinbaseWallet)) {
         return true;
       } else {
         return false;
