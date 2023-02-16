@@ -1,6 +1,6 @@
 {
   "name": "lit-connect-modal",
-  "version": "0.1.9",
+  "version": "0.1.11",
   "description": "",
   "main": "build/index.js",
   "scripts": {
