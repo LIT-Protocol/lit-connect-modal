@@ -29,7 +29,7 @@ const rawListOfWalletsArray = [
     htmlId: "lcm-walletConnect",
     id: "walletconnect",
     logo: walletConnectLogo,
-    name: "Wallet Connect",
+    name: "WalletConnect",
     provider: null,
     synopsis: "Scan with WalletConnect to connect",
   },
