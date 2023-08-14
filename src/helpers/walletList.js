@@ -8,14 +8,10 @@ const rawListOfWalletsArray = [
     id: "metamask",
     logo: metaMaskLogo,
     name: "MetaMask",
-    provider: globalThis.ethereum,
+    provider: globalThis.ethereum?.providers?.find(p => p.isMetaMask),
     synopsis: "Connect your MetaMask Wallet",
     checkIfPresent: () => {
-      if (typeof globalThis.ethereum !== "undefined") {
-        return true;
-      } else {
-        return false;
-      }
+      return !!globalThis.ethereum?.providers?.find(p => p.isMetaMask);
     },
   },
   {
@@ -26,11 +22,7 @@ const rawListOfWalletsArray = [
     provider: globalThis.ethereum?.providers?.find(p => p.isCoinbaseWallet),
     synopsis: "Connect your Coinbase Wallet",
     checkIfPresent: () => {
-      if (!!globalThis.ethereum?.providers?.find(p => p.isCoinbaseWallet)) {
-        return true;
-      } else {
-        return false;
-      }
+      return !!globalThis.ethereum?.providers?.find(p => p.isCoinbaseWallet);
     },
   },
   {
