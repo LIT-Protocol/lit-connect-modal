@@ -1,11 +1,9 @@
 const providerMethods = {
-  walletconnect: async (providerOptions, id) => {
+  walletconnect: (providerOptions, id) => {
     const walletConnectData = providerOptions.walletconnect;
-    const opts = walletConnectData.options;
+    const walletConnectProvider = walletConnectData.provider;
 
-    const WalletConnectProvider = walletConnectData.package;
-
-    return await WalletConnectProvider.init(opts);
+    return walletConnectProvider;
   },
 };
 
