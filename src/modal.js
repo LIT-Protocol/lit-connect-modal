@@ -1,6 +1,10 @@
 import MicroModal from "micromodal";
 import css from "./modal.css";
-import rawListOfWalletsArray from "./helpers/walletList.js";
+import {
+  rawListOfWalletsArray,
+  metaMaskSingle,
+  coinbaseSingle,
+} from "./helpers/walletList.js";
 import providerMethods from "./helpers/providerMethods.js";
 
 export default class LitConnectModal {
@@ -56,23 +60,48 @@ export default class LitConnectModal {
   _filterListOfWallets() {
     const filteredListOfWalletsArray = [];
 
+    // -- this would only work if user installed multiple wallet extensions
+    // eg. when "ethereum.providers" is defined
     rawListOfWalletsArray.forEach((w) => {
-      // filters list based on availability of wallets in rawListOfWalletsArray
-      // availability can be confirmed by information contained here, or passed in
       if (!!w["checkIfPresent"] && w["checkIfPresent"]() === true) {
-        // checks for availability based on 'checkIfPresent' function in rawListOfWalletsArray
         filteredListOfWalletsArray.push(w);
-      } else if (!!this.providerOptions[w.id]) {
-        // checks for availability based on imported 'providerOptions' configuration
-        // the function to set the provider should always take the 'providerOptions' array and the id of the wallet
-        const cloneWalletInfo = w;
-        cloneWalletInfo["provider"] = providerMethods[w.id](
-          this.providerOptions,
-          w.id
-        );
-        filteredListOfWalletsArray.push(cloneWalletInfo);
       }
     });
+
+    // -- try again, when user only installed a single wallet extension
+    // eg. when "ethereums.provider" it undefined, and can only be access
+    // via "ethereum.isMetaMask" or "ethereum.isCoinbaseWallet
+    if (filteredListOfWalletsArray.length === 0) {
+      if (globalThis.ethereum) {
+        if (globalThis.ethereum.isMetaMask) {
+          filteredListOfWalletsArray.push(metaMaskSingle);
+        }
+
+        if (globalThis.ethereum.isCoinbaseWallet) {
+          filteredListOfWalletsArray.push(coinbaseSingle);
+        }
+      }
+
+      console.log("this.providerOptions", this.providerOptions);
+    }
+
+    // -- if walletconnect is present, add it to the list
+    if (!!this.providerOptions["walletconnect"]) {
+      const cloneWalletInfo = rawListOfWalletsArray.find(
+        (w) => w.id === "walletconnect"
+      );
+      cloneWalletInfo["provider"] = providerMethods["walletconnect"](
+        this.providerOptions,
+        "walletconnect"
+      );
+      filteredListOfWalletsArray.push(cloneWalletInfo);
+    }
+
+    // -- finally, throw an error if no wallets are present
+    if (filteredListOfWalletsArray.length === 0) {
+      alert("No wallets installed or provided.");
+      throw new Error("No wallets installed or provided.");
+    }
 
     this.filteredListOfWalletsArray = filteredListOfWalletsArray;
   }
@@ -115,7 +144,7 @@ export default class LitConnectModal {
     this.filteredListOfWalletsArray.forEach((w) => {
       walletListHtml += `
         <div class="lcm-wallet-container" id="${w.id}">
-          <img class="lcm-wallet-logo"  src=${w.logo} />
+          <img class="lcm-wallet-logo"  src='${w.logo}' />
           <div class="lcm-text-column">
             <p class="lcm-wallet-name" >${w.name}</p>
             <p class="lcm-wallet-synopsis" >${w.synopsis}</p>
