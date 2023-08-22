@@ -1,7 +1,7 @@
 {
-  "name": "lit-connect-modal",
-  "version": "0.1.11",
-  "description": "",
+  "name": "@lit-protocol/connect-modal",
+  "version": "1.0.1",
+  "description": "Simple connect wallet model",
   "main": "build/index.js",
   "scripts": {
     "build": "node esbuild.js"
